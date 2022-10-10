@@ -5,6 +5,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
+const cors = require('cors');
 require('dotenv').config(); 
 const mongoUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_COLLECTION}?retryWrites=true&w=majority`;
 const path = require('path');
@@ -23,7 +24,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload());
-
+app.use(cors({
+  origin: '*'
+}));
 
 
 app.use('/api/auth', userRoute);
