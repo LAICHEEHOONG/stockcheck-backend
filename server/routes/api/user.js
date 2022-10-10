@@ -141,5 +141,14 @@ router.route('/admin')
     }
 })
 
+router.route('/test')
+.get(async(req, res) => {
+    try {
+        res.json({message: 'testing response ok!!'})
+    } catch(err) {
+        res.json({message: 'testing response failed!', error: err})
+
+    }
+})
 
 module.exports = router;
