@@ -59,7 +59,9 @@ router.route('/login')
 
             if(result) {
                 let token = loginUser.generateToken();
-                res.cookie('auth', token).json({message: 'login success', role: loginUser.role});
+                //res.cookie('auth', token).json({message: 'login success', role: loginUser.role});
+                res.cookie('auth', token).json({message: 'login success', role: loginUser.role, cookie_: {name: 'auth', token: token}});
+
             } else {
                 res.json({message: 'login failed', error: 'wrong password'});
             }
