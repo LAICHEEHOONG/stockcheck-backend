@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload());
 app.use(cors({
-    origin: '*'
+  origin: '*'
 }));
 
 
@@ -35,32 +35,64 @@ app.use('/api/list', listRoute);
 app.use('/api/input', inputRoute);
 app.use('/api/history', historyRoute);
 
+/************ heroku **********/
+// app.use(express.static('build'));
 
+// if (process.env.NODE_ENV === 'production') {
+//   app.get('/*', function (req, res) {
+//     res.sendFile(path.join(__dirname, '../index.html'), function (err) {
+//       if (err) {
+//         res.status(500).send({error:err, message: 'production'})
+//       }
+//     });
+//   })
+// }
 
 /************ render.com **********/
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
 
-if (process.env.NODE_ENV === 'production') {
-    app.get('/*', function (req, res) {
-        res.sendFile(path.join(__dirname, 'build', 'index.html'), function (err) {
-            if (err) {
-                res.status(500).send({ error: err, message: 'production' })
-            }
-        });
-    })
-};
-
-
+// if (process.env.NODE_ENV === 'production') {
+//   app.get('/*', function (req, res) {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'), function (err) {
+//       if (err) {
+//         res.status(500).send({ error: err, message: 'production 2.40pm' })
+//       }
+//     });
+//   })
+// }
 
 
+// app.get('/*', function(req,res) {
+// 		res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 
+app.get('/', (req, res) => {
+  res.send('hello world')
+})
 
+/********* 检查mongoDB 链接 *********/
+// MongoClient.connect(mongoUri, (err, client) => {
+//   if(err) {
+//     throw err;
+//   }
+//   console.log('connected to the db');
+// })
 
 const port = process.env.PORT || 3001;
 
-
-
 app.listen(port, () => {
-    console.log(`Connect port: ${port}`)
+  console.log(`Connect port: ${port}`)
 })
 
+//mongo db
+//username laicheehoong
+//password 0175337331
+
+//rm -rf .git // cd client
+
+//heroku login
+//git add .
+//git commit -am ""
+//git push heroku master
+
+//https://stockcheck-pcd-us.herokuapp.com/
