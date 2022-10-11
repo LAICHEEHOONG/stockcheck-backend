@@ -17,7 +17,7 @@ exports.checkToken = async (req, res, next) => {
             next();
         } else {
             console.log('no auth token');
-            res.json({ login: false, message: 'no auth token' });
+            //res.json({ login: false, message: 'no auth token' });
             next();
         }
 
