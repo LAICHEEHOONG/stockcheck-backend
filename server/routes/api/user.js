@@ -84,14 +84,30 @@ router.route('/login')
 })
 
 router.route('/verify')
-.get(checkToken,async(req, res) => {
+.post(async(req, res) => {
     try {
-        console.log('verify check token');
+        const cookieName = req.body.cookieName;
+        const cookieToken = req.body.cookieToken;
+
+        if (cookieName) {
+            const token = cookieToken;
+            const decoded = jwt.verify(token, jwtSecret); //decoded === user _id
+            const loginUser = await User.findById(decoded);
+
+            // console.log(loginUser);
+
+            res.json({ login: true, role: loginUser.role, zone: loginUser.zone, account: loginUser.account, sid: loginUser.sid });
+
+            next();
+        } else {
+            console.log('no auth token');
+            res.json({ login: false, message: 'no auth token' });
+            next();
+        }
+
     } catch (err) {
-        console.log({message: 'verify error', errors: err});
-        res.json({message: 'verify error', errors: err});
+        return res.status(401).json({ message: 'Bad Token', errors: err });
     }
-  
 })
 
 router.route('/admin')
