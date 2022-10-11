@@ -49,17 +49,17 @@ app.use('/api/history', historyRoute);
 // }
 
 /************ render.com **********/
-// app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'build')));
 
-// if (process.env.NODE_ENV === 'production') {
-//   app.get('/*', function (req, res) {
-//     res.sendFile(path.join(__dirname, 'build', 'index.html'), function (err) {
-//       if (err) {
-//         res.status(500).send({ error: err, message: 'production 2.40pm' })
-//       }
-//     });
-//   })
-// }
+if (process.env.NODE_ENV === 'production') {
+  app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'), function (err) {
+      if (err) {
+        res.status(500).send({ error: err, message: 'production' })
+      }
+    });
+  })
+}
 
 
 // app.get('/*', function(req,res) {
@@ -67,7 +67,7 @@ app.use('/api/history', historyRoute);
 // });
 
 app.get('/', (req, res) => {
-  res.send('hello world')
+  res.send('hello world remove redirect render.com')
 })
 
 /********* 检查mongoDB 链接 *********/
