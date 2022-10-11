@@ -36,39 +36,39 @@ app.use('/api/input', inputRoute);
 app.use('/api/history', historyRoute);
 
 /************ heroku **********/
-// app.use(express.static('build'));
-
-// if (process.env.NODE_ENV === 'production') {
-//   app.get('/*', function (req, res) {
-//     res.sendFile(path.join(__dirname, '../index.html'), function (err) {
-//       if (err) {
-//         res.status(500).send({error:err, message: 'production'})
-//       }
-//     });
-//   })
-// }
-
-/************ render.com **********/
 app.use(express.static(path.join(__dirname, 'build')));
 
 if (process.env.NODE_ENV === 'production') {
   app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'), function (err) {
+    res.sendFile(path.join(__dirname, '../build/index.html'), function (err) {
       if (err) {
-        res.status(500).send({ error: err, message: 'production' })
+        res.status(500).send({error:err, message: 'production RENDER.COM'})
       }
     });
   })
 }
+
+/************ render.com **********/
+// app.use(express.static(path.join(__dirname, 'build')));
+
+// if (process.env.NODE_ENV === 'production') {
+//   app.get('/*', function (req, res) {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'), function (err) {
+//       if (err) {
+//         res.status(500).send({ error: err, message: 'production' })
+//       }
+//     });
+//   })
+// }
 
 
 // app.get('/*', function(req,res) {
 // 		res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // });
 
-app.get('/', (req, res) => {
-  res.send('hello world remove redirect render.com')
-})
+// app.get('/', (req, res) => {
+//   res.send('hello world remove redirect render.com')
+// })
 
 /********* 检查mongoDB 链接 *********/
 // MongoClient.connect(mongoUri, (err, client) => {
