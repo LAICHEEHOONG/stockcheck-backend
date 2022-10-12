@@ -1,7 +1,10 @@
 const express = require('express');
-const { checkToken } = require('../../middleware/auth_middleware');
+// const { checkToken } = require('../../middleware/auth_middleware');
 let router = express.Router();
 const {User} = require('../../models/user_model');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const jwtSecret = process.env.JWT_SECRET;
 
 router.route('/register')
 .post(async(req, res) => {
@@ -89,6 +92,8 @@ router.route('/verify')
         const cookieName = req.body.cookieName;
         const cookieToken = req.body.cookieToken;
 
+        console.log(`cookieName: ${cookieName}, cookieToken: ${cookieToken}`)
+
         if (cookieName) {
             const token = cookieToken;
             const decoded = jwt.verify(token, jwtSecret); //decoded === user _id
@@ -98,11 +103,11 @@ router.route('/verify')
 
             res.json({ login: true, role: loginUser.role, zone: loginUser.zone, account: loginUser.account, sid: loginUser.sid });
 
-            next();
+            // next();
         } else {
             console.log('no auth token');
             res.json({ login: false, message: 'no auth token' });
-            next();
+            // next();
         }
 
     } catch (err) {
