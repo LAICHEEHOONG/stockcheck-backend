@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === 'production') {
   app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, '../build/index.html'), function (err) {
       if (err) {
-        res.status(500).send({error:err, message: 'other way send cookie'})
+        res.status(500).send({error:err, message: 'update user.js'})
       }
     });
   })
